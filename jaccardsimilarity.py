@@ -1,7 +1,11 @@
 def jaccard(set1, set2):
     intersection = len(set1.intersection(set2))
     union = len(set1.union(set2))
-    jaccard_result = intersection / union
+    if union == 0:
+        print("Your sets is empty. ")
+        exit()
+    else:
+        jaccard_result = intersection / union
     return jaccard_result
 
 

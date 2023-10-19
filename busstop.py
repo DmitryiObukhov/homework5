@@ -15,34 +15,45 @@ your_bus = input("Enter your bus: ")
 if your_bus in a3_bus:
     selected_bus = a3_bus[your_bus]
 else:
-    print("Ivalid bus selection. Choose bus from list.")
+    print("Invalid bus selection. Choose bus from list.")
     exit()
 
-your_time = int(input("Enter your time 8:"))
+your_time = int(input("Enter your time (8:XX): "))
+if 0 <= your_time < 60:
+    pass
+else:
+    print("Enter minutes from 1 to 59")
+    exit()
 
 
 def bus_timing(bus_stop, minutes):
-    if 0 <= minutes < 60:
-        next_time = None
-        for value in bus_stop:
-            if value >= minutes:
-                next_time = value
-                break
-        if next_time is not None:
+    for value in bus_stop:
+        if value >= minutes:
+            next_time = value
             result = next_time - minutes
             print(f"Bus come in: {result} min.")
-            return 1
-        else:
-            print('Today there are no more buses.')
-            return -1
-    else:
-        print("Enter minutes from 1 to 59.")
-
-
-def test_bus_timing():
-    result1 = bus_timing(selected_bus, your_time)
-    assert result1 == 1
+            return result
+    print('Today there are no more buses.')
+    return -1
 
 
 bus_timing(selected_bus, your_time)
+
+
+def test_bus_timing():
+    result1 = bus_timing(a3_bus['bus 34'], 8)
+    assert result1 == 1
+
+    result2 = bus_timing(a3_bus['bus 75'], 10)
+    assert result2 == 7
+
+    result3 = bus_timing(a3_bus['bus 130'], 10)
+    assert result3 == 0
+
+    result4 = bus_timing(a3_bus['bus 130'], 9)
+    assert result4 == 1
+
+    print("Asserts passed.")
+
+
 test_bus_timing()
