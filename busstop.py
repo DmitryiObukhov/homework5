@@ -1,4 +1,3 @@
-print("Bus schedule for 8 am. Arrival time is indicated in minutes:")
 a3_bus = {
     'bus 130': [0, 10, 20, 30, 40, 50],
     'bus 146': [3, 13, 23, 33, 43, 53],
@@ -7,23 +6,6 @@ a3_bus = {
     'bus 101': [8, 18, 28, 38, 48, 58],
     'bus 34': [9, 19, 29, 39, 49, 59],
 }
-for bus, schedule in a3_bus.items():
-    print(f"{bus}:{schedule}")
-print('\n')
-
-your_bus = input("Enter your bus: ")
-if your_bus in a3_bus:
-    selected_bus = a3_bus[your_bus]
-else:
-    print("Invalid bus selection. Choose bus from list.")
-    exit()
-
-your_time = int(input("Enter your time (8:XX): "))
-if 0 <= your_time < 60:
-    pass
-else:
-    print("Enter minutes from 1 to 59")
-    exit()
 
 
 def bus_timing(bus_stop, minutes):
@@ -37,7 +19,27 @@ def bus_timing(bus_stop, minutes):
     return -1
 
 
-bus_timing(selected_bus, your_time)
+def main():
+    print("Bus schedule for 8 am. Arrival time is indicated in minutes:")
+    for bus, schedule in a3_bus.items():
+        print(f"{bus}:{schedule}")
+    print('\n')
+
+    your_bus = input("Enter your bus: ")
+    if your_bus in a3_bus:
+        selected_bus = a3_bus[your_bus]
+    else:
+        print("Invalid bus selection. Choose bus from list.")
+        return
+
+    your_time = int(input("Enter your time (8:XX): "))
+    if 0 <= your_time < 60:
+        pass
+    else:
+        print("Enter minutes from 1 to 59")
+        return
+
+    bus_timing(selected_bus, your_time)
 
 
 def test_bus_timing():
@@ -56,4 +58,6 @@ def test_bus_timing():
     print("Asserts passed.")
 
 
-test_bus_timing()
+if __name__ == "__main__":
+    main()
+    test_bus_timing()
